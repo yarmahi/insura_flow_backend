@@ -1,4 +1,4 @@
-CUstomer:
+CUstomer: 3
     - register
     - claim 
     - renew
@@ -6,12 +6,12 @@ CUstomer:
     - Add 
     - notification
     - chat (Agent)
-Admin:
+Admin: 1
     - add agent 
     - add plan
-Super User:
+Super User: 0
     - add admin
-Agent:
+Agent: 2
     - add CUstomer
     - chat (CUstomer)
     - view claim
@@ -19,4 +19,124 @@ Agent:
 
 plan
     - policy 
-    - 
+
+User:
+    - id: int primary
+    - email: varchar
+    - password: varchar
+    - type: enum (0, 1, 2, 3)
+    - created_at: datetime
+    - updated_at: datetime
+
+admin:
+    - id:int primary key
+    - user_id: int foreign key
+    - fname: varchar
+    - mname: varchar
+    - lname: varchar
+    - phone: varchar
+    - created_at: datetime
+    - updated_at: datetime
+
+agent 
+    - id:int primary key
+    - user_id: int foreign key
+    - fname: varchar
+    - mname: varchar
+    - lname: varchar
+    - phone: varchar
+    - created_at: datetime
+    - updated_at: datetime
+
+agent_claim
+    - id 
+    - claim_id
+    - agent_id
+    - created_at: datetime
+    - updated_at: datetime
+
+Customer
+    - id: int primary 
+    - user_id:int foreign key
+    - is_company: bool
+    - fname: varchar
+    - mname: varchar
+    - lname: varchar
+    - license_number: varchar
+    - wereda: varchar
+    - phone: varchar
+    - house_no: varchar
+    - created_at: datetime
+    - updated_at: datetime
+
+vehicle
+    - id: int primary
+    - plate_number: varchar
+    - engine_number: varchar
+    - chassis_number: varchar
+    - model: varchar
+    - type_of_body: varchar
+    - horse_power: varchar
+    - year_manufactured: varchar
+    - year_of_purchased: varchar
+    - passenger_carrying_capacity: varchar  
+    - goods_carrying_capacity: varchar
+    - created_at: datetime
+    - updated_at: datetime
+
+customer_vehicle
+    - id: int primary
+    - customer_id: int foreign key
+    - vehicle_id: int foreign key
+    - plan_array: json
+    - premium_amount: double
+    - payment_term: double
+    - next_payment: datetime
+    - created_at: datetime
+    - updated_at: datetime
+
+invoice
+    - int: int primary key
+    - customer_vehicle_id: int foreign key
+    - transaction_number: varchar
+    - amount: double
+    - start_data: datetime
+    - end_data: datetime
+    - created_at: datetime
+    - updated_at: datetime
+
+
+claim
+    - id: int primary
+    - latitude: varchar
+    - longitude: varchar
+    - customer_vehicle_id: int foreign key
+    - description: varchar  
+    - time_of_accident: datetime
+    - status: enum (pending, approved, declined)
+    - created_at: datetime
+    - updated_at: datetime
+
+claim_wittiness
+    - id: int primary
+    - claim_id: int foreign key
+    - fname: varchar
+    - mname: varchar
+    - phone_number
+    - created_at: datetime
+    - updated_at: datetime
+
+claim_photo
+    - id: int primary
+    - claim_id: int foreign key
+    - url: varchar
+    - created_at: datetime
+    - updated_at: datetime
+
+plan_type:
+    - id: int primary key
+    - name: varchar
+    - description: varchar
+    - base_price: double
+    - created_at: datetime
+    - updated_at: datetime
