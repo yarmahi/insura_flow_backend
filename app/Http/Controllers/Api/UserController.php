@@ -28,10 +28,10 @@ class UserController extends Controller
             'mname' => 'nullable|string',
             'lname' => 'required|string',
             'phone' => 'required|string',
-            'is_company' => 'required_if:type,0|boolean',
-            'license_number' => 'required_if:type,0|string',
-            'wereda' => 'required_if:type,0|string',
-            'house_no' => 'required_if:type,0|string',
+            'is_company' => 'nullable|required_if:type,0|boolean',
+            'license_number' => 'nullable|required_if:type,0|string',
+            'wereda' => 'nullable|required_if:type,0|string',
+            'house_no' => 'nullable|required_if:type,0|string',
         ]);
 
         $user = User::create([
