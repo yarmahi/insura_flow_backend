@@ -34,6 +34,7 @@ class UserController extends Controller
             'house_no' => 'nullable|required_if:type,0|string',
         ]);
 
+        // return $validated;
         $user = User::create([
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
