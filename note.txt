@@ -1,0 +1,22 @@
+CUstomer:
+    - register
+    - claim 
+    - renew
+    - Buy
+    - Add 
+    - notification
+    - chat (Agent)
+Admin:
+    - add agent 
+    - add plan
+Super User:
+    - add admin
+Agent:
+    - add CUstomer
+    - chat (CUstomer)
+    - view claim
+    - approve claim
+
+plan
+    - policy 
+    - 
