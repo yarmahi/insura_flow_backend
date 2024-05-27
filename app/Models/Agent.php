@@ -18,8 +18,8 @@ class Agent extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function agentClaims()
+    public function Claims()
     {
-        return $this->hasMany(AgentClaim::class);
+        return $this->hasMany(Claim::class);
     }
 }

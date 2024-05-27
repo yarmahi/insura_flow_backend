@@ -24,7 +24,7 @@ class AgentResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'user' => new UserResource($this->whenLoaded('user')),
-            'agent_claims' => AgentClaimResource::collection($this->whenLoaded('agentClaims')),
+            'claims' => ClaimResource::collection($this->whenLoaded('claims')),
         ];
     }
 }

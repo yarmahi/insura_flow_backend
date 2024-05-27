@@ -28,7 +28,7 @@ class VehicleResource extends JsonResource
             'goods_carrying_capacity' => $this->goods_carrying_capacity,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'customer_vehicles' => CustomerVehicleResource::collection($this->whenLoaded('customerVehicles')),
+            'customer' => CustomerResource::collection($this->whenLoaded('customer')),
         ];
     }
 }

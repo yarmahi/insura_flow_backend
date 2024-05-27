@@ -10,11 +10,11 @@ class Invoice extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'customer_vehicle_id', 'transaction_number', 'amount', 'start_date', 'end_date'
+        'vehicle_id', 'transaction_number', 'amount', 'start_date', 'end_date'
     ];
 
-    public function customerVehicle()
+    public function vehicle()
     {
-        return $this->belongsTo(CustomerVehicle::class);
+        return $this->belongsTo(Vehicle::class);
     }
 }

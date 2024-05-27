@@ -10,17 +10,17 @@ class Claim extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'latitude', 'longitude', 'customer_vehicle_id', 'description', 'time_of_accident', 'status'
+        'latitude', 'longitude', 'agent_id', 'vehicle_id', 'description', 'time_of_accident', 'status'
     ];
 
-    public function customerVehicle()
+    public function vehicle()
     {
-        return $this->belongsTo(CustomerVehicle::class);
+        return $this->belongsTo(Vehicle::class);
     }
 
-    public function agentClaims()
+    public function agent()
     {
-        return $this->hasMany(AgentClaim::class);
+        return $this->belongsTo(Agent::class);
     }
 
     public function claimWitnesses()
