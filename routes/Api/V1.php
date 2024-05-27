@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AgentController;
 use App\Http\Controllers\Api\ClaimController;
+use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,12 +17,18 @@ Route::apiResource('claims', ClaimController::class);
 Route::prefix('agents')->group(function (){
     Route::get('/', [AgentController::class, 'index']);
     Route::get('{agent}', [AgentController::class, 'show']);
-    Route::post('{agent}/link-claim', [AgentController::class, 'linkClaim']);
 });
 
 // Claim Route
 Route::prefix('claims')->group(function () {
     Route::get('/', [ClaimController::class, 'index']);
+    Route::get('{claims}', [AgentController::class, 'show']);
     Route::post('{claim}/link-agent', [ClaimController::class, 'linkAgent']);
     Route::post('{claim}/unlink-agent', [ClaimController::class, 'unlinkAgent']);
+});
+
+// customer Route
+Route::prefix('customer')->group(function () {
+    Route::get('/', [CustomerController::class, 'index']);
+    Route::get('{customer}', [CustomerController::class, 'show']);
 });

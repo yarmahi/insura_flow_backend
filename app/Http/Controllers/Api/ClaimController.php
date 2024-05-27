@@ -14,7 +14,7 @@ class ClaimController extends Controller
 {
     public function index()
     {
-        return ClaimResource::collection(Claim::with(['customerVehicle', 'agentClaims', 'claimWitnesses', 'claimPhotos'])->paginate());
+        return ClaimResource::collection(Claim::with(['vehicle', 'agent', 'claimWitnesses', 'claimPhotos'])->paginate());
     }
 
     public function store(Request $request)
@@ -35,7 +35,7 @@ class ClaimController extends Controller
 
     public function show(Claim $claim)
     {
-        return new ClaimResource($claim->load(['customerVehicle', 'agentClaims', 'claimWitnesses', 'claimPhotos']));
+        return new ClaimResource($claim->load(['vehicle', 'agent', 'claimWitnesses', 'claimPhotos']));
     }
 
     public function update(Request $request, Claim $claim)
