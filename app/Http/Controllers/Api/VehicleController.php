@@ -27,7 +27,7 @@ class VehicleController extends Controller
             'type_of_body' => 'required|string|max:255',
             'horse_power' => 'required|string|max:255',
             'year_manufactured' => 'required|string|max:4',
-            'year_of_purchased' => 'required|string|max:4',
+            'year_of_purchased' => 'required|string|max:4|gte:year_manufactured',
             'passenger_carrying_capacity' => 'required|string|max:255',
             'goods_carrying_capacity' => 'required|string|max:255',
         ]);
@@ -57,7 +57,7 @@ class VehicleController extends Controller
             'type_of_body' => 'required|string|max:255',
             'horse_power' => 'required|string|max:255',
             'year_manufactured' => 'required|string|max:4',
-            'year_of_purchased' => 'required|string|max:4',
+            'year_of_purchased' => 'required|string|max:4|gte:year_manufactured',
             'passenger_carrying_capacity' => 'required|string|max:255',
             'goods_carrying_capacity' => 'required|string|max:255',
         ]);

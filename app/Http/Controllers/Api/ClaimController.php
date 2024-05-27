@@ -105,5 +105,21 @@ class ClaimController extends Controller
 
         return response()->json(['message' => 'Claim unlinked from agent successfully.'], 200);
     }
+
+    public function changeStatus(Request $request, Claim $claim)
+    {
+        $validator = Validator::make($request->all(), [
+            'status' => 'required|in:pending,approved,declined',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        $claim->status = $request->input('status');
+        $claim->save();
+
+        return new ClaimResource($claim);
+    }
 }
 

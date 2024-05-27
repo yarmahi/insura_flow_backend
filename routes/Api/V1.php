@@ -27,6 +27,7 @@ Route::prefix('claims')->group(function () {
     Route::get('{claims}', [AgentController::class, 'show']);
     Route::post('{claim}/link-agent', [ClaimController::class, 'linkAgent']);
     Route::post('{claim}/unlink-agent', [ClaimController::class, 'unlinkAgent']);
+    Route::post('{claim}/status', [ClaimController::class, 'changeStatus']);
 });
 
 // customer Route
