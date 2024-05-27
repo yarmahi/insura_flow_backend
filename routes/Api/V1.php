@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AgentController;
 use App\Http\Controllers\Api\ClaimController;
 use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\PlanTypeController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,3 +33,6 @@ Route::prefix('customer')->group(function () {
     Route::get('/', [CustomerController::class, 'index']);
     Route::get('{customer}', [CustomerController::class, 'show']);
 });
+
+// Plan Type Route
+Route::apiResource('plan-types', PlanTypeController::class);
