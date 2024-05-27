@@ -25,7 +25,7 @@ class ClaimResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'vehicle' => new VehicleResource($this->whenLoaded('vehicle')),
-            'agent' => AgentResource::collection($this->whenLoaded('agent')),
+            'agent' => new AgentResource($this->whenLoaded('agent')),
             'claim_witnesses' => ClaimWitnessResource::collection($this->whenLoaded('claimWitnesses')),
             'claim_photos' => ClaimPhotoResource::collection($this->whenLoaded('claimPhotos')),
         ];

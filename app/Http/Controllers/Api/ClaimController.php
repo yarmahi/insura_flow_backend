@@ -22,7 +22,8 @@ class ClaimController extends Controller
         $validated = $request->validate([
             'latitude' => 'required|string',
             'longitude' => 'required|string',
-            'customer_vehicle_id' => 'required|exists:customer_vehicles,id',
+            'agent_id' => 'nullable|exists:agents,id',
+            'vehicle_id' => 'required|exists:vehicles,id',
             'description' => 'nullable|string',
             'time_of_accident' => 'required|date',
             'status' => 'required|in:pending,approved,declined',
@@ -43,7 +44,8 @@ class ClaimController extends Controller
         $validated = $request->validate([
             'latitude' => 'sometimes|required|string',
             'longitude' => 'sometimes|required|string',
-            'customer_vehicle_id' => 'sometimes|required|exists:customer_vehicles,id',
+            'agent_id' => 'nullable|exists:agents,id',
+            'vehicle_id' => 'sometimes|required|exists:vehicles,id',
             'description' => 'nullable|string',
             'time_of_accident' => 'sometimes|required|date',
             'status' => 'sometimes|required|in:pending,approved,declined',

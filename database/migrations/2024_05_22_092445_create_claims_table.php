@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('latitude');
             $table->string('longitude');
-            $table->foreignId('agent_id')->constrained()->onDelete('cascade');
+            $table->foreignId('agent_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('vehicle_id')->constrained()->onDelete('cascade');
             $table->string('description')->nullable();
             $table->datetime('time_of_accident');

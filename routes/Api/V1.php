@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\ClaimController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\PlanTypeController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\VehicleController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -36,3 +37,6 @@ Route::prefix('customer')->group(function () {
 
 // Plan Type Route
 Route::apiResource('plan-types', PlanTypeController::class);
+
+// Vehicle Route
+Route::apiResource('vehicles', VehicleController::class);
