@@ -140,3 +140,14 @@ plan_type:
     - base_price: double
     - created_at: datetime
     - updated_at: datetime
+
+
+
+plan
+chat 
+notification
+- new claim
+- new custome
+
+- status updated
+- renewal time

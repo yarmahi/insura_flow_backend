@@ -46,18 +46,18 @@ class User extends Authenticatable
         ];
     }
 
-    public function customers()
+    public function customer()
     {
-        return $this->hasMany(Customer::class);
+        return $this->hasOne(Customer::class);
     }
 
-    public function admins()
+    public function admin()
     {
-        return $this->hasMany(Admin::class);
+        return $this->hasOne(Admin::class);
     }
 
-    public function agents()
+    public function agent()
     {
-        return $this->hasMany(Agent::class);
+        return $this->hasOne(Agent::class);
     }
 }

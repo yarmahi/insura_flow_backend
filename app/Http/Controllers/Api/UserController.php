@@ -123,6 +123,18 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        switch($user->type){
+            case 0: // Customer
+                $user->customers->delete();
+                break;
+            case 1: // Agent
+                $user->agent->delete();
+                break;
+            case 2: // Admin
+                $user->admin->delete();
+                break;
+        }
+        
         $user->delete();
 
         return response()->noContent();
