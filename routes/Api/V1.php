@@ -29,9 +29,11 @@ Route::prefix('claims')->group(function () {
 });
 
 // customer Route
-Route::prefix('customer')->group(function () {
+Route::prefix('customers')->group(function () {
     Route::get('/', [CustomerController::class, 'index']);
     Route::get('{customer}', [CustomerController::class, 'show']);
+    Route::post('{customer}/link-agent', [CustomerController::class, 'linkAgent']);
+    Route::post('{customer}/unlink-agent', [CustomerController::class, 'unlinkAgent']);
 });
 
 // Plan Type Route

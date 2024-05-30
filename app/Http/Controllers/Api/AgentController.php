@@ -15,12 +15,12 @@ class AgentController extends Controller
 {
     public function index()
     {
-        return AgentResource::collection(Agent::with(['user', 'claims'])->paginate());
+        return AgentResource::collection(Agent::with(['user', 'claims', 'customers'])->paginate());
     }
 
     public function show(Agent $agent)
     {        
-        return new AgentResource($agent->load(['user', 'claims']));
+        return new AgentResource($agent->load(['user', 'claims', 'customers']));
     }
 
 }

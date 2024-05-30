@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ClaimResource;
 use App\Models\Agent;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -85,6 +86,13 @@ class ClaimController extends Controller
             "agent_id" => $agent->id
         ]);
 
+        // add event to notification table 
+        Notification::create([
+            'user_id' => $agent->user_id,
+            'title' => 'New Claim added',
+            'content' => 'A new claim has been added to your account. Please review it as soon as possible.',
+        ]);
+
         return response()->json([
             'message' => 'Claim linked to agent successfully.',
             'claim' => $claim,
@@ -98,9 +106,18 @@ class ClaimController extends Controller
             return response()->json(['message' => 'This claim is not linked to any agent.'], 404);
         }
 
+        $agent = $claim->agent;
+
         // Unlink the claim from the agent
         $claim->update([
             "agent_id" => null
+        ]);
+
+        // add event to notification table 
+        Notification::create([
+            'user_id' => $agent->user_id,
+            'title' => 'Claim has been removed',
+            'content' => 'The claim has been successfully removed from your account.',
         ]);
 
         return response()->json(['message' => 'Claim unlinked from agent successfully.'], 200);
@@ -112,12 +129,24 @@ class ClaimController extends Controller
             'status' => 'required|in:pending,approved,declined',
         ]);
 
+        // Check if the status is same 
+        if ($claim->status == $request->input('status')) {
+            return response()->json(['message' => 'This claim is already in the specified status.'], 404);
+        }
+
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
 
         $claim->status = $request->input('status');
         $claim->save();
+
+        // add event to notification table 
+        Notification::create([
+            'user_id' => $claim->vehicle->customer->user_id,
+            'title' => 'Status Changed',
+            'content' => "The claim status has been changed to $claim->status.",
+        ]);
 
         return new ClaimResource($claim);
     }

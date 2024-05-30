@@ -18,6 +18,11 @@ class Agent extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function customers()
+    {
+        return $this->hasMany(Customer::class);
+    }
+
     public function Claims()
     {
         return $this->hasMany(Claim::class);
