@@ -12,8 +12,7 @@ class PlanTypeController extends Controller
 {
     public function index()
     {
-        $planTypes = PlanType::paginate(10);
-        return PlanTypeResource::collection($planTypes);
+        return PlanTypeResource::collection(PlanType::with('vehicles')->paginate());
     }
 
     public function store(Request $request)
@@ -35,7 +34,7 @@ class PlanTypeController extends Controller
 
     public function show(PlanType $planType)
     {
-        return new PlanTypeResource($planType);
+        return new PlanTypeResource($planType->load('vehicles'));
     }
 
     public function update(Request $request, PlanType $planType)

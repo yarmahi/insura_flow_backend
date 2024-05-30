@@ -7,13 +7,14 @@ use App\Models\Customer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Resources\VehicleResource;
+use App\Models\PlanType;
 use Illuminate\Support\Facades\Validator;
 
 class VehicleController extends Controller
 {
     public function index()
     {
-        return VehicleResource::collection(Vehicle::with('customer')->paginate());
+        return VehicleResource::collection(Vehicle::with(['customer', 'planTypes'])->paginate());
     }
 
     public function store(Request $request)
@@ -43,7 +44,7 @@ class VehicleController extends Controller
 
     public function show(Vehicle $vehicle)
     {
-        return new VehicleResource($vehicle->load('customer'));
+        return new VehicleResource($vehicle->load(['customer', 'planTypes']));
     }
 
     public function update(Request $request, Vehicle $vehicle)
@@ -76,5 +77,43 @@ class VehicleController extends Controller
         $vehicle->delete();
 
         return response()->json(null, 204);
+    }
+
+    public function linkPlanType(Request $request, Vehicle $vehicle)
+    {
+        $validator = Validator::make($request->all(), [
+            'plan_type_id' => 'required|exists:plan_types,id',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        $planType = PlanType::find($request->input('plan_type_id'));
+
+        if (!$vehicle->planTypes->contains($planType->id)) {
+            $vehicle->planTypes()->attach($planType->id);
+        }
+
+        return new VehicleResource($vehicle->load('planTypes'));
+    }
+
+    public function unlinkPlanType(Request $request, Vehicle $vehicle)
+    {
+        $validator = Validator::make($request->all(), [
+            'plan_type_id' => 'required|exists:plan_types,id',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        $planType = PlanType::find($request->input('plan_type_id'));
+
+        if ($vehicle->planTypes->contains($planType->id)) {
+            $vehicle->planTypes()->detach($planType->id);
+        }
+
+        return new VehicleResource($vehicle->load('planTypes'));
     }
 }

@@ -19,6 +19,7 @@ class PlanTypeResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'base_price' => $this->base_price,
+            'vehicles' => VehicleResource::collection($this->whenLoaded('vehicles')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

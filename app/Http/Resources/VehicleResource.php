@@ -29,6 +29,7 @@ class VehicleResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'customer' => new CustomerResource($this->whenLoaded('customer')),
+            'plan_types' => PlanTypeResource::collection($this->whenLoaded('planTypes'))
         ];
     }
 }

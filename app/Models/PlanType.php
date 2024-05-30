@@ -12,5 +12,10 @@ class PlanType extends Model
     protected $fillable = [
         'name', 'description', 'base_price'
     ];
+
+    public function vehicles()
+    {
+        return $this->belongsToMany(Vehicle::class, 'plan_vehicle', 'plan_type_id', 'vehicle_id');
+    }
 }
 

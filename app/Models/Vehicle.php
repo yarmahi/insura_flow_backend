@@ -28,6 +28,11 @@ class Vehicle extends Model
     {
         return $this->hasMany(Claim::class);
     }
+
+    public function planTypes()
+    {
+        return $this->belongsToMany(PlanType::class, 'plan_vehicle', 'vehicle_id', 'plan_type_id');
+    }
 }
 
 

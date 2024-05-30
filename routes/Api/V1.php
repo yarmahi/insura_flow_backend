@@ -12,9 +12,6 @@ use Illuminate\Support\Facades\Route;
 // User Route
 Route::apiResource('users', UserController::class);
 
-// Claim Route
-Route::apiResource('claims', ClaimController::class);
-
 // Agent Route
 Route::prefix('agents')->group(function (){
     Route::get('/', [AgentController::class, 'index']);
@@ -22,6 +19,7 @@ Route::prefix('agents')->group(function (){
 });
 
 // Claim Route
+Route::apiResource('claims', ClaimController::class);
 Route::prefix('claims')->group(function () {
     Route::get('/', [ClaimController::class, 'index']);
     Route::get('{claims}', [AgentController::class, 'show']);
@@ -41,3 +39,7 @@ Route::apiResource('plan-types', PlanTypeController::class);
 
 // Vehicle Route
 Route::apiResource('vehicles', VehicleController::class);
+Route::prefix('vehicles')->group(function () {
+    Route::post('{vehicle}/link-plan-type', [VehicleController::class, 'linkPlanType']);
+    Route::post('{vehicle}/unlink-plan-type', [VehicleController::class, 'unlinkPlanType']);
+});
