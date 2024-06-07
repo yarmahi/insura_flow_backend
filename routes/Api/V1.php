@@ -31,7 +31,7 @@ Route::middleware(['auth:sanctum', 'user-access:admin'])->prefix('agents')->grou
 });
 
 // Claim Route
-Route::middleware('auth:sanctum')->prefix('claims')->group(function () {
+Route::prefix('claims')->group(function () {
     Route::get('/', [ClaimController::class, 'index']);
     Route::post('/', [ClaimController::class, 'store']);
     Route::get('{claim}', [ClaimController::class, 'show']);

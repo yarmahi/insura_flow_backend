@@ -7,8 +7,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ClaimResource;
 use App\Models\Agent;
+use App\Models\ClaimPhoto;
+use App\Models\ClaimWitness;
 use App\Models\Notification;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+
 
 
 class ClaimController extends Controller
@@ -28,11 +33,58 @@ class ClaimController extends Controller
             'description' => 'nullable|string',
             'time_of_accident' => 'required|date',
             'status' => 'required|in:pending,approved,declined',
+            'photos' => 'array',
+            'photos.*' => 'required|file|mimes:jpeg,png,jpg|max:2048',
+            'witnesses' => 'array',
+            'witnesses.*.fname' => 'required|string',
+            'witnesses.*.mname' => 'nullable|string',
+            'witnesses.*.phone_number' => 'required|string',
         ]);
 
-        $claim = Claim::create($validated);
+        DB::beginTransaction();
 
-        return new ClaimResource($claim);
+        try{
+            $claim = Claim::create([
+                'latitude' => $validated['latitude'],
+                'longitude' => $validated['longitude'],
+                'agent_id' => $validated['agent_id'] ?? null,
+                'vehicle_id' => $validated['vehicle_id'],
+                'description' => $validated['description'],
+                'time_of_accident' => $validated['time_of_accident'],
+                'status' => $validated['status']
+            ]);
+
+            if ($request->has('photos')) {
+                foreach ($request->file('photos') as $photo) {
+                    $path = $photo->store('claim_photos', 'public');
+                    $url = Storage::url($path);
+
+                    ClaimPhoto::create([
+                        'claim_id' => $claim->id,
+                        'url' => $url
+                    ]);
+                }
+            }
+
+            if (isset($validated['witnesses'])) {
+                foreach ($validated['witnesses'] as $witnessData) {
+                    ClaimWitness::create([
+                        'claim_id' => $claim->id,
+                        'fname' => $witnessData['fname'],
+                        'mname' => $witnessData['mname'] ?? null,
+                        'phone_number' => $witnessData['phone_number']
+                    ]);
+                }
+            }
+
+            DB::commit();
+
+            return new ClaimResource($claim);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return response()->json(['message' => 'Failed to create claim', 'error' => $e->getMessage()], 500);
+        }
     }
 
     public function show(Claim $claim)
