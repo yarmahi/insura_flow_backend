@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AgentController;
 use App\Http\Controllers\Api\ClaimController;
 use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\InvoiceController;
 use App\Http\Controllers\Api\PlanTypeController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VehicleController;
@@ -45,3 +46,7 @@ Route::prefix('vehicles')->group(function () {
     Route::post('{vehicle}/link-plan-type', [VehicleController::class, 'linkPlanType']);
     Route::post('{vehicle}/unlink-plan-type', [VehicleController::class, 'unlinkPlanType']);
 });
+
+// Invoice Route
+Route::apiResource('invoices', InvoiceController::class);
+Route::post('invoices/{id}/status', [InvoiceController::class, 'updateStatus']);

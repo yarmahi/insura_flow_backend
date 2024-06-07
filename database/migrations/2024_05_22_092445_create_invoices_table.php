@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->foreignId('vehicle_id')->constrained()->onDelete('cascade');
-            $table->string('transaction_number');
+            $table->string('transaction_number')->nullable();
             $table->double('amount');
             $table->datetime('start_date');
             $table->datetime('end_date');
+            $table->enum('status', ['paid', 'unpaid'])->default('unpaid');
             $table->timestamps();
             $table->softDeletes();
         });

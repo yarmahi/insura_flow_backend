@@ -23,7 +23,7 @@ class InvoiceResource extends JsonResource
             'end_data' => $this->end_data,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'vehicle' => new CustomerResource($this->whenLoaded('vehicle')),
+            'vehicle' => new VehicleResource($this->whenLoaded('vehicle')),
         ];
     }
 }

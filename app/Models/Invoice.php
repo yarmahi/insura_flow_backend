@@ -10,7 +10,7 @@ class Invoice extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'vehicle_id', 'transaction_number', 'amount', 'start_date', 'end_date'
+        'vehicle_id', 'transaction_number', 'amount', 'start_date', 'end_date', 'status'
     ];
 
     public function vehicle()
