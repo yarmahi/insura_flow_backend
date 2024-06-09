@@ -27,5 +27,9 @@ class Customer extends Model
     {
         return $this->hasMany(Vehicle::class);
     }
+
+    public function getName() {
+        return $this->fname . ' ' . $this->lname;
+    }
 }
 
