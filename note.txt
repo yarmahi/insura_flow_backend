@@ -148,6 +148,16 @@ chat
 notification
 - new claim
 - new custome
+- new customer -> admin
 
 - status updated
 - renewal time
+
+- invoice 
+- notif
+    - email (invoice)
+    - renew
+
+- new customer -> admin
+- chat
+

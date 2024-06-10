@@ -22,6 +22,8 @@ Route::prefix('users')->group(function () {
     Route::get('{user}', [UserController::class, 'show']);
     Route::patch('{user}', [UserController::class, 'update']);
     Route::delete('{user}', [UserController::class, 'destroy']);
+    Route::get('{user}/notifications', [UserController::class, 'getNotifications']);
+    Route::patch('{notification}/read', [UserController::class, 'markAsRead']);
 });
 
 // Agent Route

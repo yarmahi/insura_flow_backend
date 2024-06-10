@@ -8,7 +8,9 @@ use App\Models\Admin;
 use App\Models\Agent;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\NotificationResource;
 use App\Http\Resources\UserResource;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -138,5 +140,15 @@ class UserController extends Controller
         $user->delete();
 
         return response()->noContent();
+    }
+
+    public function getNotifications(User $user) {
+        return NotificationResource::collection($user->notifications);
+    }
+
+    public function markAsRead(Notification $notification) {
+        $notification->update(['read' => true]);
+
+        return new NotificationResource($notification);
     }
 }

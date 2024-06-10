@@ -68,4 +68,8 @@ class User extends Authenticatable
     {
         return ["customer", "agent", "admin"][$this->type];
     }
+
+    public function notifications() {
+        return $this->hasMany(Notification::class);
+    }
 }
