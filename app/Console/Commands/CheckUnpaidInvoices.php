@@ -24,7 +24,7 @@ class CheckUnpaidInvoices extends Command
      */
     protected $description = 'Command description';
 
-    protected array $invoices;
+    protected array $invoices = [];
 
     /**
      * Execute the console command.
@@ -32,7 +32,6 @@ class CheckUnpaidInvoices extends Command
     public function handle()
     {
 
-        echo "hey";
         $vehicles = Vehicle::all();
 
         foreach ($vehicles as $vehicle) {
