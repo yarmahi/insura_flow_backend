@@ -48,6 +48,7 @@ Route::prefix('claims')->group(function () {
 Route::prefix('customers')->group(function () {
     Route::get('/', [CustomerController::class, 'index']);
     Route::get('{customer}', [CustomerController::class, 'show']);
+    Route::get('{customer}/claims', [CustomerController::class, 'getClaims']);
     Route::post('{customer}/link-agent', [CustomerController::class, 'linkAgent']);
     Route::post('{customer}/unlink-agent', [CustomerController::class, 'unlinkAgent']);
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Customer;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ClaimResource;
 use Illuminate\Http\Request;
 use App\Http\Resources\CustomerResource;
 use App\Models\Agent;
@@ -71,6 +72,18 @@ class CustomerController extends Controller
         ]);
 
         return new CustomerResource($customer->load(['user', 'vehicles', 'agent']));
+    }
+
+    public function getClaims(Customer $customer) {
+
+        $claims = [];
+
+        foreach ($customer->vehicles as $vehicle) {
+            foreach($vehicle->claims as $claim) {
+                $claims[] = $claim;
+            }
+        }
+        return ClaimResource::collection(collect($claims));
     }
 
 }
